@@ -11,7 +11,7 @@ interface EncryptedAnswer {
 interface Question {
   id: string;
   question: string;
-  difficulty: string;
+  category: string;
   correctAnswer: EncryptedAnswer | string;
   answers: string[];
   playerAnswer: string | null;

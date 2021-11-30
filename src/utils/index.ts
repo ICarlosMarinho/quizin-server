@@ -3,7 +3,7 @@ import { v4 as uuid } from "uuid";
 
 export const parseQuestions = (response: any[]): Question[] | null => {
   try {
-    return response.map(({ question, difficulty, correct_answer, incorrect_answers }) => {
+    return response.map(({ question, category, correct_answer, incorrect_answers }) => {
       const iv = crypto.randomBytes(16);
       const cipher = crypto.createCipheriv("aes-256-gcm", process.env.SECRET as string, iv);
       const encrypted = Buffer.concat([cipher.update(Buffer.from(correct_answer)), cipher.final()]);
@@ -12,7 +12,7 @@ export const parseQuestions = (response: any[]): Question[] | null => {
       return {
         id: uuid(),
         question,
-        difficulty,
+        category,
         correctAnswer: {
           iv: iv.toString("hex"),
           authTag: authTag.toString("hex"),
